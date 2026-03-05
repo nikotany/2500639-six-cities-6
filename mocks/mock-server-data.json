@@ -1,0 +1,96 @@
+{
+  "api":{
+    "titles": [
+      "Апартаменты около дендрария",
+      "Студия на окраине города",
+      "Квартира с видом на горы",
+      "Апартаменты в центре города",
+      "Квартира рядом с метро",
+      "Лофт с видом на море"
+    ],
+    "descriptions": [
+      "Элегантные апартаменты в историческом центре",
+      "Стильная студия с дизайнерским ремонтом",
+      "Уютная квартира рядом с горнолыжными трассами",
+      "Светлые и просторные апартаменты с балконом. Отличный выбор для тех, кто ценит комфорт и хорошее расположение.",
+      "Квартира находится в нескольких минутах ходьбы от станции метро.",
+      "Роскошный лофт с частным причалом и видом на море"
+    ],
+    "cities": [
+      {
+        "name": "Paris",
+        "location": {
+          "latitude": 48.85661,
+          "longitude": 2.351499
+        }
+      },
+      {
+        "name": "Cologne",
+        "location": {
+          "latitude": 50.938361,
+          "longitude": 6.959974
+        }
+      },
+      {
+        "name": "Brussels",
+        "location": {
+          "latitude": 50.846557,
+          "longitude": 4.351697
+        }
+      },
+      {
+        "name": "Amsterdam",
+        "location": {
+          "latitude": 52.370216,
+          "longitude": 4.895168
+        }
+      },
+      {
+        "name": "Hamburg",
+        "location": {
+          "latitude": 53.550341,
+          "longitude": 10.000654
+        }
+      },
+      {
+        "name": "Dusseldorf",
+        "location": {
+          "latitude": 51.225402,
+          "longitude": 6.776314
+        }
+      }
+    ],
+    "images": [
+      "apartment-1.jpg",
+      "apartment-2.jpg",
+      "apartment-3.jpg",
+      "apartment-4.jpg",
+      "apartment-5.jpg",
+      "apartment-6.jpg"
+    ],
+    "authors": [
+      "author-apart1",
+      "author-studio",
+      "author-flat1",
+      "author-apart2",
+      "author-flat2",
+      "author-loft"
+    ],
+    "emails": [
+      "author-apart1@example.com",
+      "author-studio@example.com",
+      "author-flat1@example.com",
+      "author-apart2@example.com",
+      "author-flat2@example.com",
+      "author-loft@example.com"
+    ],
+    "avatarPath": [
+      "avatar-apart1.png",
+      "avatar-studio.png",
+      "avatar-flat1.png",
+      "avatar-apart2.png",
+      "avatar-flat2.png",
+      "avatar-loft.png"
+    ]
+  }
+}
