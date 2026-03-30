@@ -1,6 +1,6 @@
-import { City } from './city.type';
-import { Location } from './location.type';
-import { User } from './user.type';
+import { City } from './city.type.js';
+import { Location } from './location.type.js';
+import { User } from './user.type.js';
 
 export enum Conveniences{
   Breakfast = 'Breakfast',

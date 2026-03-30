@@ -1,6 +1,6 @@
 import { createOffer, getErrorMessage } from '../../shared/helpers/index.js';
-import { TSVFileReader } from '../../shared/libs/file-reader/tsv-file-reader.js';
-import { Command } from './command.interface';
+import { TSVFileReader } from '../../shared/libs/file-reader/index.js';
+import { Command } from './command.interface.js';
 import chalk from 'chalk';
 
 export class ImportCommand implements Command{
@@ -9,7 +9,7 @@ export class ImportCommand implements Command{
     return '--import';
   }
 
-  private onImportedLine(line:string) {
+  private onImportedLine(line: string) {
     const offer = createOffer(line);
     console.info(offer);
   }

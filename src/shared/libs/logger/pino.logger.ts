@@ -1,8 +1,8 @@
-import { resolve } from 'node:path';
-import { getCurrentModuleDirectoryPath } from '../../helpers';
-import { Logger } from './logger.interface';
-import { Logger as PinoInstance, pino, transport} from 'pino';
+import { Logger as PinoInstance, pino, transport } from 'pino';
+import { Logger } from './logger.interface.js';
 import { injectable } from 'inversify';
+import { getCurrentModuleDirectoryPath } from '../../helpers/index.js';
+import { resolve } from 'node:path';
 
 
 @injectable()
@@ -23,8 +23,8 @@ export class PinoLogger implements Logger{
         },
         {
           target: 'pino/file',
+          options: {},
           level: 'info',
-          options: {}
         }
       ]
     });

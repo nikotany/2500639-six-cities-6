@@ -3,6 +3,7 @@ import { Logger, PinoLogger } from './shared/libs/logger/index.js';
 import { Container } from 'inversify';
 import { Component } from './shared/types/index.js';
 import { RestConfig, RestShcema, Config} from './shared/libs/config/index.js';
+import 'reflect-metadata';
 
 
 async function bootstrap() {
