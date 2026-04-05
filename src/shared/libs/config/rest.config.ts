@@ -3,7 +3,7 @@ import { Logger } from '../logger/index.js';
 import { Config } from './config.interface.js';
 import { configRestShcema, RestShcema } from './rest.schema.js';
 import { config } from 'dotenv';
-import { Component } from '../../types/component.enum.js';
+import { Component } from '../../types/index.js';
 
 @injectable()
 export class RestConfig implements Config<RestShcema>{

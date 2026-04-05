@@ -34,7 +34,7 @@ export function createOffer(offerData: string): Offer{
   return{
     title,
     description,
-    datePublication:new Date(datePublication),
+    datePublication: new Date(datePublication),
     city,
     previewPath,
     images: images.split(','),
