@@ -4,12 +4,12 @@ import { createReadStream } from 'node:fs';
 
 const CHUNK_SIZE = 16384;
 
-export class TSVFileReader extends EventEmitter implements FileReader{
+export class TSVFileReader extends EventEmitter implements FileReader {
   constructor(private readonly fileName: string){
     super();
   }
 
-  public async read():Promise<void> {
+  public async read(): Promise<void> {
     const readStream = createReadStream(this.fileName, {
       highWaterMark: CHUNK_SIZE,
       encoding: 'utf-8'
@@ -27,7 +27,9 @@ export class TSVFileReader extends EventEmitter implements FileReader{
         remainingData = remainingData.slice(++nextLinePosition);
         importedRowCount++;
 
-        this.emit('line', compileteRow);
+        await new Promise((resolve) => {
+          this.emit('line', compileteRow, resolve);
+        });
       }
     }
 
