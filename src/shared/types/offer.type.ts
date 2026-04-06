@@ -1,6 +1,6 @@
-import { City } from './city.type';
-import { Location } from './location.type';
-import { User } from './user.type';
+import { CityName } from './city-name.enum.js';
+import { Location } from './location.type.js';
+import { User } from './user.type.js';
 
 export enum Conveniences{
   Breakfast = 'Breakfast',
@@ -23,7 +23,7 @@ export type Offer = {
   title: string;
   description: string;
   datePublication: Date;
-  city: City;
+  city: CityName;
   previewPath: string;
   images: string[];
   isPremium: boolean;

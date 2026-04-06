@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { OfferGenerator } from './offer-generator.interface.js';
-import { City, Conveniences, MockServerData, OfferType, UserType } from '../../types/index.js';
+import { CityName, Conveniences, MockServerData, OfferType, UserType } from '../../types/index.js';
 import { generateRandomValue, getRandomItem, getRandomItems } from '../../helpers/index.js';
 import generator from 'generate-password';
 
@@ -21,11 +21,7 @@ export class TSVOfferGenerator implements OfferGenerator{
     const datePublication = dayjs()
       .subtract(generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY), 'day')
       .toISOString();
-    const cityObj = getRandomItem<City>(this.mockData.cities);
-    const cityName = cityObj.name;
-    const cityLocationObj = cityObj.location;
-    const cityLatitude = cityLocationObj.latitude;
-    const cityLongitude = cityLocationObj.longitude;
+    const city = getRandomItem<CityName>(this.mockData.cities);
     const previewPath = getRandomItem<string>(this.mockData.images);
     const images = this.mockData.images.join(',');
     const isPremium = generateRandomValue(0,1) === 1;
@@ -42,14 +38,13 @@ export class TSVOfferGenerator implements OfferGenerator{
     const authorPassword = generator.generate({ length: 10, numbers: true });
     const authorType = getRandomItem<string>(Object.keys(UserType));
     const commentsCount = generateRandomValue(0, 100);
-    const latitude = generateRandomValue(cityLatitude - 0.5, cityLatitude + 0.5, 6);
-    const longitude = generateRandomValue(cityLongitude - 0.5, cityLongitude + 0.5, 6);
+    const location = `${generateRandomValue(-90, 90, 6)},${generateRandomValue(-180, 180, 6)}`;
 
     return [
-      title, description, datePublication, cityName, cityLatitude, cityLongitude, previewPath, images,
+      title, description, datePublication, city, previewPath, images,
       isPremium, isFavorite, rating, type, countRoom, countGuest, rentalPrice, conveniences,
       authorName, authorEmail, authorAvatarPath, authorPassword, authorType, commentsCount,
-      latitude, longitude
+      location
     ].join('\t');
   }
 }

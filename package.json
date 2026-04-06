@@ -36,8 +36,8 @@
   },
   "type": "module",
   "engines": {
-    "node": "^18.0.0",
-    "npm": ">=8"
+    "node": "24.14.0",
+    "npm": "11.9.0"
   },
   "dependencies": {
     "@typegoose/typegoose": "13.2.1",
