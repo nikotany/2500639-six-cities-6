@@ -70,7 +70,13 @@ npm start
 npm run cli -- <команда>
 ```
 
-Команды --help, --import, --version
+Команды:
+- `--version` - выводит номер версии
+- `--help` - печатает этот текст
+- `--import <path>` - импортирует данные из TSV
+- `--import <path> <db-uri> <salt>` - импортирует данные из TSV в MongoDB
+- `--import <path> <user> <password> <host> <db> <salt>` - импортирует данные из TSV в MongoDB (параметры подключения отдельно)
+- `--generate <n> <path> <url>` - генерирует произвольное количество тестовых данных
 
 #### Запустить сервис
 

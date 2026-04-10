@@ -8,11 +8,10 @@ import { createOfferContainer } from './shared/modules/offer/offer.container.js'
 
 async function bootstrap() {
   const appContainer = new Container();
-  appContainer.load(
-    createRestApplicationContainer(),
-    createUserContainer(),
-    createOfferContainer(),
-  );
+
+  createRestApplicationContainer(appContainer);
+  createUserContainer(appContainer);
+  createOfferContainer(appContainer);
 
   const application = appContainer.get<RestApplication>(Component.RestApplication);
   await application.init();
