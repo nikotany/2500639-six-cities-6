@@ -5,7 +5,9 @@ import { TSVFileWriter } from '../../shared/libs/file-writer/index.js';
 import { getErrorMessage } from '../../shared/helpers/index.js';
 import { TSVOfferGenerator } from '../../shared/libs/offer-generator/index.js';
 import got from 'got';
+import { injectable } from 'inversify';
 
+@injectable()
 export class GenerateCommand implements Command{
   private initialData: MockServerData;
 

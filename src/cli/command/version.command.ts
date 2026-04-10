@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { Command } from './command.interface.js';
 import { resolve } from 'node:path';
+import { injectable } from 'inversify';
 
 type PackageJSONConfig = {
   version: string;
@@ -15,6 +16,7 @@ function isPackageJSONConfig(value: unknown): value is PackageJSONConfig {
   );
 }
 
+@injectable()
 export class VersionCommand implements Command {
   constructor(
     private readonly filePath: string = './package.json'

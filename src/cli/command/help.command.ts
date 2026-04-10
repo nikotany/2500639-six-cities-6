@@ -1,5 +1,7 @@
+import { injectable } from 'inversify';
 import { Command } from './command.interface.js';
 
+@injectable()
 export class HelpCommand implements Command{
 
   public getName(): string {
