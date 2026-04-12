@@ -12,4 +12,6 @@ export const Component = {
   VersionCommand: Symbol.for('VersionCommand'),
   ImportCommand: Symbol.for('ImportCommand'),
   GenerateCommand: Symbol.for('GenerateCommand'),
+  CommentModel: Symbol.for('CommentModel'),
+  CommentService: Symbol.for('CommentService'),
 } as const;

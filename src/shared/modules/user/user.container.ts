@@ -1,4 +1,4 @@
-import { Container, ContainerModule } from 'inversify';
+import { Container } from 'inversify';
 import { UserService } from './user-service.interface.js';
 import { Component } from '../../types/component.enum.js';
 import { DefaultUserService } from './default-user.service.js';

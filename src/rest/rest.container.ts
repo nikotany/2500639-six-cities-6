@@ -1,4 +1,4 @@
-import { Container, ContainerModule } from 'inversify';
+import { Container } from 'inversify';
 import { RestApplication } from './rest.application.js';
 import { Component } from '../shared/types/index.js';
 import { Logger, PinoLogger } from '../shared/libs/logger/index.js';
