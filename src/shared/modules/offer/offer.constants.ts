@@ -1,0 +1,2 @@
+export const DEFAULT_COUNT_OFFER = 60;
+export const DEFAULT_COUNT_PREMIUM_OFFER = 3;
