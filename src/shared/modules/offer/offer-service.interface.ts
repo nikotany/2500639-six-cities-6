@@ -9,7 +9,7 @@ export interface OfferService {
   findById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
   updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null>;
   deleteById(offerId: string): Promise<DeleteResult>;
-  findAll(): Promise<DocumentType<OfferEntity>[]>;
+  findAll(limit?: number): Promise<DocumentType<OfferEntity>[]>;
   findPremiumByCity(cityName: string): Promise<DocumentType<OfferEntity>[]>;
   findFavorites(userId: string): Promise<DocumentType<OfferEntity>[]>;
   addToFavorite(offerId: string, userId: string): Promise<void>;

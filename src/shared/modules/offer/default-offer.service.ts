@@ -5,7 +5,7 @@ import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { OfferService, UpdateOfferDto } from './index.js';
 import { Logger } from '../../libs/logger/index.js';
-import { DeleteResult } from 'mongoose';
+import { DeleteResult, Types } from 'mongoose';
 import { DEFAULT_COUNT_OFFER, DEFAULT_COUNT_PREMIUM_OFFER } from './offer.constants.js';
 import { UserEntity } from '../user/user.entity.js';
 import { CommentEntity } from '../comment/comment.entity.js';
@@ -23,31 +23,31 @@ export class DefaultOfferService implements OfferService {
     const result = await this.offerModel.create(dto);
     this.logger.info(`New offer created: ${dto.title}`);
 
-    return result;
+    return result.populate('authorId');
   }
 
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById(offerId).exec();
+    return this.offerModel.findById(offerId).populate('authorId').exec();
   }
 
   public async updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findOneAndUpdate({_id: offerId}, dto, {new: true});
+    return this.offerModel.findOneAndUpdate({_id: offerId}, dto, {new: true}).populate('authorId');
   }
 
   public async deleteById(offerId: string): Promise<DeleteResult> {
     return this.offerModel.deleteOne({_id: offerId}).exec();
   }
 
-  public async findAll(): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel.find({}).sort({ createdAt: Sort.Desc}).limit(DEFAULT_COUNT_OFFER).exec();
+  public async findAll(limit = DEFAULT_COUNT_OFFER): Promise<DocumentType<OfferEntity>[]> {
+    return this.offerModel.find({}).populate('authorId').sort({ createdAt: Sort.Desc}).limit(limit).exec();
   }
 
   public async findPremiumByCity(cityName: string): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel.find({'city': cityName, isPremium: true}).sort({createdAt: Sort.Desc}).limit(DEFAULT_COUNT_PREMIUM_OFFER).exec();
+    return this.offerModel.find({'city': cityName, isPremium: true}).populate('authorId').sort({createdAt: Sort.Desc}).limit(DEFAULT_COUNT_PREMIUM_OFFER).exec();
   }
 
   public async findFavorites(userId: string): Promise<DocumentType<OfferEntity>[]> {
-    const favoriteOffers = await this.offerModel.find({favoriteByUsers: userId}).exec();
+    const favoriteOffers = await this.offerModel.find({favoriteByUsers: userId}).populate('authorId').exec();
     return favoriteOffers;
   }
 
@@ -62,10 +62,12 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async recalcRating(offerId: string): Promise<void> {
+    const offerObjectId = new Types.ObjectId(offerId);
+
     const avgRating = await this.commentModel.aggregate([
       {
         $match: {
-          offerId: offerId
+          offerId: offerObjectId
         }
       },
       {

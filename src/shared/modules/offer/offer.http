@@ -1,0 +1,106 @@
+# Предложения
+## Создать новое предложение (объявление)
+
+POST http://localhost:4000/offers HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Современные апартаменты рядом с парком",
+  "description": "Квартира находится в нескольких минутах ходьбы от станции метро. Уютная атмосфера и все удобства для долгосрочного проживания.",
+  "datePublication": "2026-03-08T23:17:22.442Z",
+  "city": "Cologne",
+  "previewPath": "preview.jpg",
+  "images": [
+    "apartment-1.jpg",
+    "apartment-2.jpg",
+    "apartment-3.jpg"
+  ],
+  "isPremium": false,
+  "isFavourites": false,
+  "rating": 4.5,
+  "type": "apartment",
+  "countRoom": 5,
+  "countGuest": 7,
+  "rentalPrice": 60000,
+  "conveniences": [
+    "Washer",
+    "Towels"
+  ],
+  "authorId": "62711a50b0e24a624d49ffdc",
+  "commentCount": 0,
+  "coordinates": {
+    "latitude": 50.938361,
+    "longitude": 6.959974
+  }
+}
+
+###
+
+## Получить список предложений
+GET http://localhost:4000/offers HTTP/1.1
+
+###
+
+## Получить предложение по идентификатору
+GET http://localhost:4000/offers/69f49a799341051032fbb95f HTTP/1.1
+
+###
+
+## Обновить данные предложения по идентификатору
+PATCH  http://localhost:4000/offers/69f49a799341051032fbb95f HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Современные апартаменты рядом с парком",
+  "description": "Квартира находится в нескольких минутах ходьбы от станции метро. Уютная атмосфера и все удобства для долгосрочного проживания.",
+  "city": "Cologne",
+  "previewPath": "preview.jpg",
+  "images": [
+    "apartment-1.jpg",
+    "apartment-2.jpg",
+    "apartment-3.jpg"
+  ],
+  "isPremium": false,
+  "isFavourites": false,
+  "rating": 4.5,
+  "type": "Apartment",
+  "countRoom": 5,
+  "countGuest": 7,
+  "rentalPrice": 60000,
+  "conveniences": [
+    "Washer",
+    "Towels"
+  ],
+  "commentCount": 0,
+  "coordinates": {
+    "latitude": 50.938361,
+    "longitude": 6.959974
+  }
+}
+
+###
+
+## Удалить предложение по идентификатору
+DELETE http://localhost:4000/offers/69f49a799341051032fbb95f HTTP/1.1
+
+###
+
+## Получить список избранных предложений
+GET http://localhost:4000/offers/favorites HTTP/1.1
+
+###
+
+## Добавить предложение в избанное
+POST http://localhost:4000/offers/69f49a799341051032fbb95f/favorite HTTP/1.1
+
+###
+
+## Удалить предложение из избранного
+DELETE http://localhost:4000/offers/69f49a799341051032fbb95f/favorite HTTP/1.1
+
+###
+
+# Получить премиум предложения по городам
+GET http://localhost:4000/offers/premium/Cologne HTTP/1.1
+
+###

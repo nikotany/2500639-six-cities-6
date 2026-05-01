@@ -179,7 +179,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/offerId'
 
-    put:
+    patch:
       tags:
         - offers
       summary: Редактировать предложение по id
