@@ -1,4 +1,7 @@
+import { DocumentType } from '@typegoose/typegoose';
 import { Conveniences, Offer, OfferType, UserType, CityName } from '../types/index.js';
+import { OfferEntity } from '../modules/offer/offer.entity.js';
+import { Cities } from '../constants/cities.js';
 
 export function createOffer(offerData: string): Offer{
   const [
@@ -38,5 +41,20 @@ export function createOffer(offerData: string): Offer{
     author,
     commentCount: Number.parseInt(commentsCount, 10),
     location: offerLocation
+  };
+}
+
+
+export function prepareOffer(offer: DocumentType<OfferEntity>) {
+  const plain = offer.toObject() as OfferEntity;
+  const city = Cities[plain.city];
+
+  return {
+    ...plain,
+    id: String(offer._id),
+    city: {
+      name: city.name,
+      location: city.location
+    }
   };
 }

@@ -1,6 +1,6 @@
 import { defaultClasses, getModelForClass, modelOptions, prop, Ref } from '@typegoose/typegoose';
 import { Conveniences, OfferType } from '../../types/index.js';
-import { UserEntity } from '../user/user.entity.js';
+import type { UserEntity } from '../user/user.entity.js';
 import { CityName } from '../../types/city-name.enum.js';
 import { LocationsSchema } from './locations.schema.js';
 
@@ -110,7 +110,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
-    ref: UserEntity
+    ref: 'UserEntity'
   })
   public authorId!: Ref<UserEntity>;
 
@@ -123,6 +123,12 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     type: () => LocationsSchema
   })
   public coordinates!: LocationsSchema;
+
+  @prop({
+    ref: 'UserEntity',
+    default: [],
+  })
+  public favoriteByUsers!: Ref<UserEntity>[];
 }
 
 export const OfferModel = getModelForClass(OfferEntity);
