@@ -1,4 +1,7 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer';
+import { IncomingHttpHeaders } from 'node:http';
+import { HttpError } from '../libs/rest/index.js';
+import { StatusCodes } from 'http-status-codes';
 
 export function generateRandomValue(min: number, max: number, numAfterDigit = 0): number {
   return +((Math.random() * (max - min)) + min).toFixed(numAfterDigit);
@@ -26,4 +29,19 @@ export function createErrorObject(message: string) {
   return {
     error: message,
   };
+}
+
+export function getUserId(headers: IncomingHttpHeaders, controllerName: string): string {
+  const userId = headers['x-user-id'];
+  const value = Array.isArray(userId) ? userId[0] : userId;
+
+  if (!value) {
+    throw new HttpError(
+      StatusCodes.UNAUTHORIZED,
+      'Unauthorized user',
+      controllerName,
+    );
+  }
+
+  return value;
 }

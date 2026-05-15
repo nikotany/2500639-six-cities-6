@@ -1,14 +1,16 @@
 import { inject, injectable } from 'inversify';
-import { BaseController, HttpError, HttpMethod } from '../../libs/rest/index.js';
+import { BaseController, HttpError, HttpMethod, ValidateDtoMiddleware } from '../../libs/rest/index.js';
 import { Component } from '../../types/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { Request, Response } from 'express';
-import { UserService, CreateUserRequest, UserRdo } from './index.js';
+import { UserService, UserRdo, CreateUserDto } from './index.js';
 import { RestSchema, Config } from '../../libs/config/index.js';
 import { StatusCodes } from 'http-status-codes';
-import { fillDTO } from '../../helpers/common.js';
-import { LoginUserRequest } from './login-user-request.type.js';
+import { fillDTO, getUserId } from '../../helpers/common.js';
 import { createSHA256 } from '../../helpers/hash.js';
+import { CreateUserRequest } from './types/create-user-request.type.js';
+import { LoginUserRequest } from './types/login-user-request.type.js';
+import { LoginUserDto } from './dto/login-user.dto.js';
 
 @injectable()
 export class UserController extends BaseController {
@@ -21,8 +23,8 @@ export class UserController extends BaseController {
 
     this.logger.info('Register routes for UserController...');
 
-    this.addRoute({path: '/register', method: HttpMethod.Post, handler: this.create});
-    this.addRoute({path: '/login', method: HttpMethod.Post, handler: this.login});
+    this.addRoute({path: '/register', method: HttpMethod.Post, handler: this.create, middlewares: [new ValidateDtoMiddleware(CreateUserDto)]});
+    this.addRoute({path: '/login', method: HttpMethod.Post, handler: this.login, middlewares: [new ValidateDtoMiddleware(LoginUserDto)]});
     this.addRoute({path: '/checkAuth', method: HttpMethod.Get, handler: this.checkAuth});
     this.addRoute({path: '/logout', method: HttpMethod.Post, handler: this.logout});
   }
@@ -67,23 +69,8 @@ export class UserController extends BaseController {
     this.ok(res, {token: String(existUser._id)});
   }
 
-  private getUserId(req: Request): string {
-    const userId = req.headers['x-user-id'];
-    const value = Array.isArray(userId) ? userId[0] : userId;
-
-    if(!value) {
-      throw new HttpError(
-        StatusCodes.UNAUTHORIZED,
-        'Unauthorizad user',
-        'UserController'
-      );
-    }
-
-    return value;
-  }
-
   public async checkAuth(req: Request, res: Response): Promise<void> {
-    const userId = this.getUserId(req);
+    const userId = getUserId(req.headers, 'UserController');
     const existUser = await this.userService.findById(userId);
 
     if(!existUser) {
@@ -98,7 +85,7 @@ export class UserController extends BaseController {
   }
 
   public async logout(req: Request, res: Response): Promise<void> {
-    this.getUserId(req);
+    getUserId(req.headers, 'UserController');
     this.ok(res, {message: 'Logout completed'});
   }
 }
